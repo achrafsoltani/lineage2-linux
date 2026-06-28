@@ -88,7 +88,7 @@ Key realization: **populated ⇏ always kernel-AC.** Servers with built-in **aut
 ### Kernel anticheat → cannot run on Wine (includes the most popular servers)
 **L2Reborn** (SmartGuard) · **Asterios** (own kernel AC; staff: *"will not work on Linux"*) ·
 **Scryde** · **Battleclub** · **L2MAD** · **L2-Titan** (x25) · **Flauron** (x50, `active64.sys`) ·
-**ForcePlay** (x25) · **LINEAGE2DEX** (x25) · **L2Eirin** (x30) · **official NCSoft / Essence** (GameGuard) ·
+**ForcePlay** (x25 — **CONFIRMED by client inspection**: ships SmartGuard + GameGuard `npkcrypt.sys`/`npkcusb.sys`) · **LINEAGE2DEX** (x25) · **L2Eirin** (x30) · **official NCSoft / Essence** (GameGuard) ·
 **Exilium World** (one server, "Faris" — ships the *Active Launcher* / Active Anticheat; census wrongly rated it L2J-no-AC) ·
 **L2Amerika** (HF x200, ~365 online #7 — **Active Anticheat**, same vendor as Exilium) · **100ka** (Interlude x40 — **SmartGuard**; site also down) ·
 **DESTORUS** (Interlude x10000 — **Active Anticheat**, despite "autofarm" marketing) · **L2Turan** (Interlude x7 — **Active Anticheat**) · **MithrilMines** (Classic x100 — **SmartGuard**).

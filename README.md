@@ -91,8 +91,13 @@ Encryption details: header `Lineage2Ver413` (UTF-16-LE), 1024-bit RSA modulus, d
 
 1. Read the server's site / FAQ / Discord / rules — look for **"Active Anticheat" / "Active AC"**,
    **"SmartGuard"**, **"GameGuard"**, or a custom **launcher that installs a driver**.
-2. After download, check the client: `system/GameGuard/` (`GameMon.des`, `npggNT.des`) = GameGuard;
-   an `active64.sys` / Active updater = Active AC; a SmartGuard launcher = SmartGuard.
+2. **Best test — extract the client and look in `system/` for kernel `.sys` drivers** (cleaner than
+   running it). Any of these = kernel anticheat = **won't run on Wine**:
+   - `npkcrypt.sys` / `npkcusb.sys` / `GameMon.des` / `system/GameGuard/` → **GameGuard** (nProtect)
+   - `active64.sys` / an Active updater → **Active Anticheat**
+   - a `SmartGuard` folder / `SmartGuard.ini` → **SmartGuard**
+   (Real example: ForcePlay's client ships `system/npkcrypt.sys`, `system/npkcusb.sys`, and
+   `system/SmartGuard` — confirmed Wine-blocked despite advertising only a vague "ForcePlay Guard".)
 3. Server-side CAPTCHA / anti-exploit and a plain file-validation updater are **fine**.
 
 ## Troubleshooting
