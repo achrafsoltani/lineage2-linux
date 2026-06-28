@@ -98,7 +98,11 @@ Encryption details: header `Lineage2Ver413` (UTF-16-LE), 1024-bit RSA modulus, d
    - a `SmartGuard` folder / `SmartGuard.ini` → **SmartGuard**
    (Real example: ForcePlay's client ships `system/npkcrypt.sys`, `system/npkcusb.sys`, and
    `system/SmartGuard` — confirmed Wine-blocked despite advertising only a vague "ForcePlay Guard".)
-3. Server-side CAPTCHA / anti-exploit and a plain file-validation updater are **fine**.
+3. ⚠️ **A clean `system/` scan is NOT proof of safety.** **Active Anticheat fetches/loads its kernel
+   driver at *runtime***, so also **run the client and watch for an "Active Launcher" window/process:**
+   `xwininfo -root -tree | grep -i 'active launcher'`. Real example: **BOHPTS**'s `system/` looked clean
+   (only vestigial GameGuard DLLs), yet launching `l2.exe` spawned an **Active Launcher** → Wine-blocked.
+4. Server-side CAPTCHA / anti-exploit and a plain file-validation updater are **fine**.
 
 ## Troubleshooting
 

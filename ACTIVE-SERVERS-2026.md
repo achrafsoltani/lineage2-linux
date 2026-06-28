@@ -67,7 +67,7 @@ Key realization: **populated ⇏ always kernel-AC.** Servers with built-in **aut
 
 | Server | Chronicle · Rate | Pop | Wine | Note |
 |---|---|---|---|---|
-| **BOHPTS** ⭐ | Interlude **x7** | **~5,000 online** | 🟡 no AC (L2J) | **the standout — populated *and* low-rate *and* Wine-safe** |
+| ~~**BOHPTS**~~ ❌ | Interlude x7 / x20 | ~5,000 online | ❌ **Active Anticheat (runtime)** | **REVERSED by launch test:** static `system/` scan was clean (only vestigial GameGuard DLLs), but running `l2.exe` spawned an **"Active Launcher"** (Active AC) → kernel anticheat → Wine-blocked. **Lesson: Active AC loads at runtime; a clean file scan does NOT clear a server.** |
 | **L2-SAVAGE** | High Five **x5** | active (~99k votes) | 🟡 no AC | fresh-start low-rate |
 | **MOON-LAND** | Interlude **x15000** | active (#1 votes) | 🟡 no AC | built-in autofarm; churny custom-PvP |
 | **L2DAMAGE** | Interlude **x9000** | ~518 online | 🟡 no AC | autofarm, runs `l2.exe` directly |
@@ -91,7 +91,8 @@ Key realization: **populated ⇏ always kernel-AC.** Servers with built-in **aut
 **ForcePlay** (x25 — **CONFIRMED by client inspection**: ships SmartGuard + GameGuard `npkcrypt.sys`/`npkcusb.sys`) · **LINEAGE2DEX** (x25) · **L2Eirin** (x30) · **official NCSoft / Essence** (GameGuard) ·
 **Exilium World** (one server, "Faris" — ships the *Active Launcher* / Active Anticheat; census wrongly rated it L2J-no-AC) ·
 **L2Amerika** (HF x200, ~365 online #7 — **Active Anticheat**, same vendor as Exilium) · **100ka** (Interlude x40 — **SmartGuard**; site also down) ·
-**DESTORUS** (Interlude x10000 — **Active Anticheat**, despite "autofarm" marketing) · **L2Turan** (Interlude x7 — **Active Anticheat**) · **MithrilMines** (Classic x100 — **SmartGuard**).
+**DESTORUS** (Interlude x10000 — **Active Anticheat**, despite "autofarm" marketing) · **L2Turan** (Interlude x7 — **Active Anticheat**) · **MithrilMines** (Classic x100 — **SmartGuard**) ·
+**BOHPTS** (Interlude x7/x20 — **Active Anticheat loaded at runtime**; static `system/` scan missed it, caught only by a launch test that spawned an "Active Launcher" window).
 
 > The three biggest L2 servers in mid-2026 (Reborn, Asterios, and the big auto-farm Interlude
 > projects) are all kernel-anticheat — unplayable on Linux. The trade-off (popular = kernel AC) is real.
