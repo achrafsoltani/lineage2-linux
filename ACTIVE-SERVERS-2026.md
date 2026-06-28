@@ -61,6 +61,24 @@ anticheat** (the only hard blocker for Wine — see [the rule](README.md#the-one
 |---|---|---|---|---|
 | **Lineage 2 Scarlet** | Fafurion **x50** / Gracia **x20** / Freya **x15** / Orfen **x5** (not Interlude) | ~13–26/server (~400 community) | ✅✅ official WineHQ/Lutris guide | *The* most Linux-friendly server (dev publishes a Wine guide) — but population is very thin, so it reads "up but quiet." Repo scaffold ready (`examples/lineage2-scarlet/`), not installed. Needs `winetricks corefonts d3dx9 vcrun2008` + disable CSMT. |
 
+### Hopzone premium sweep (Jun 2026) — verified, anticheat-hunted
+Key realization: **populated ⇏ always kernel-AC.** Servers with built-in **autofarm** are Wine-safe
+*because* they embrace botting (you can't ship an anti-bot kernel driver alongside `.autofarm`).
+
+| Server | Chronicle · Rate | Pop | Wine | Note |
+|---|---|---|---|---|
+| **BOHPTS** ⭐ | Interlude **x7** | **~5,000 online** | 🟡 no AC (L2J) | **the standout — populated *and* low-rate *and* Wine-safe** |
+| **L2-SAVAGE** | High Five **x5** | active (~99k votes) | 🟡 no AC | fresh-start low-rate |
+| **MOON-LAND** | Interlude **x15000** | active (#1 votes) | 🟡 no AC | built-in autofarm; churny custom-PvP |
+| **L2DAMAGE** | Interlude **x9000** | ~518 online | 🟡 no AC | autofarm, runs `l2.exe` directly |
+| **L2AURUM** · **LA2BEST** · **L2WorldWar** · **L2DARKNESS** | Interlude x100–x300 | active | 🟡 no AC | autofarm / faction-PvP |
+| **L2PWNER** | Interlude **x1000** | modest | 🟡 no AC | seasonal wipes |
+| **Project-Ortos** | Gracia Epilogue **x15** | young, real (~2k votes/mo) | 🟡 no AC | best Wine-safe **mid-rate** |
+| L2Avalon x50 · L2Meta x50 · L2Goldhart x45 · L2Lethal x45 | Interlude mid | small / pre-launch | 🟡 no AC | Wine-safe but near-empty or not-yet-open |
+| **KetraWars** · **LOE** · **Aden.Land** | Essence x1 | modest | 🟡 no AC | Essence options |
+
+⚪ Wine-safe but **dead/near-empty:** L2DarkElegy (HF x35, ~8 online) · JoinEldoria (HF x8 beta).
+
 ## ❌ Avoid
 
 ### Dead (homepage up, no players)
@@ -72,7 +90,8 @@ anticheat** (the only hard blocker for Wine — see [the rule](README.md#the-one
 **Scryde** · **Battleclub** · **L2MAD** · **L2-Titan** (x25) · **Flauron** (x50, `active64.sys`) ·
 **ForcePlay** (x25) · **LINEAGE2DEX** (x25) · **L2Eirin** (x30) · **official NCSoft / Essence** (GameGuard) ·
 **Exilium World** (one server, "Faris" — ships the *Active Launcher* / Active Anticheat; census wrongly rated it L2J-no-AC) ·
-**L2Amerika** (HF x200, ~365 online #7 — **Active Anticheat**, same vendor as Exilium) · **100ka** (Interlude x40 — **SmartGuard**; site also down).
+**L2Amerika** (HF x200, ~365 online #7 — **Active Anticheat**, same vendor as Exilium) · **100ka** (Interlude x40 — **SmartGuard**; site also down) ·
+**DESTORUS** (Interlude x10000 — **Active Anticheat**, despite "autofarm" marketing) · **L2Turan** (Interlude x7 — **Active Anticheat**) · **MithrilMines** (Classic x100 — **SmartGuard**).
 
 > The three biggest L2 servers in mid-2026 (Reborn, Asterios, and the big auto-farm Interlude
 > projects) are all kernel-anticheat — unplayable on Linux. The trade-off (popular = kernel AC) is real.
