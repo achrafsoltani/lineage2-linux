@@ -5,8 +5,10 @@ patches, live Discord, real concurrent counts — *not* just a live homepage), a
 anticheat** (the only hard blocker for Wine — see [the rule](README.md#the-one-rule-that-decides-everything-anticheat)).
 
 > ⚠️ **Mid-rate (x20–x50) is a dead zone on Linux right now.** Every live server in that band uses
-> kernel anticheat or is abandoned. Real options are **low-rate** or **high-rate PvP** — or wait for
-> **L2Warland x20** (opens **16 Oct 2026**).
+> kernel anticheat or is abandoned. Real options are **low-rate** or **high-rate PvP**. (L2Warland —
+> the most *stable* mid-rate — was tested and is **NOT playable**: its mandatory login launcher is
+> .NET 4.8 + **WebView2** and won't run on Wine, Proton 9.0, or GE-Proton11. Details:
+> [examples/l2warland](examples/l2warland/README.md).)
 
 ## ✅ Active & Linux-playable
 
@@ -54,7 +56,7 @@ anticheat** (the only hard blocker for Wine — see [the rule](README.md#the-one
 | Server | Rate | Status |
 |---|---|---|
 | **L2Set (SET Classic)** | Interlude **x10** | 🟡 live but TINY (~15 online); no AC found — the only live mid-rate Wine-safe find |
-| **L2Warland (Legacy)** | x12 / x3 now; **x20 opens 16 Oct 2026** | Linux-safe (ZeusGuard, not kernel) — but the x20 world isn't live yet |
+| ~~**L2Warland (Legacy)**~~ ❌ | x12 / x3 now; x20 16 Oct 2026 | **NOT playable — launcher wall (tested).** Anticheat is fine (ZeusGuard, not kernel) and the client renders, but login needs `WarlandLauncher.exe` (64-bit .NET 4.8 + **WebView2**, token auto-login) — fails on Wine, Proton 9.0 **and** GE-Proton11. [details](examples/l2warland/README.md) |
 
 ### 🐧 Most Linux-friendly, but near-empty
 | Server | Chronicle / Rate | Population | Wine | Notes |
@@ -100,7 +102,7 @@ Key realization: **populated ⇏ always kernel-AC.** Servers with built-in **aut
 ## Picking a second server (since mid-rate is out)
 - **Safest — proven on this rig** → another **ElmoreLab** (**Median x2** or **Kamael x3**): same install flow that worked for Erica; server-side CAPTCHA, no client anticheat.
 - **Populated, different chronicle — but research-only, verify on launch** → **Melior (Classic x3)**, #1 Classic server.
-- **Set on true mid-rate (x20)?** → **wait for L2Warland x20 (16 Oct 2026)**; nothing good is live in that band now.
+- **Set on true mid-rate (x20)?** → **nothing is playable on Linux in that band.** L2Warland (the stable pick) is blocked by its WebView2 launcher — tested on Wine, Proton 9.0 and GE-Proton11 (see [examples/l2warland](examples/l2warland/README.md)). Stay low-rate (ElmoreLab) or high-rate PvP.
 
 *Method: cross-checked nostalgic.gg live Discord-integration tracker (~81 active servers / ~16k
 concurrent, late Jun 2026) against each server's own site, patch dates, and anticheat docs. Population
