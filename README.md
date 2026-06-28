@@ -1,180 +1,117 @@
-# Lineage 2 Interlude on Linux
+# Lineage 2 on Linux
 
-Guide to running Lineage 2 Interlude (GhostSeason private server) on Linux using Wine.
+Run the **Lineage 2 client on Linux via Wine** and connect to private servers — with ready-made
+setup/launch scripts for several servers in [`examples/`](examples/).
 
 ## Tested On
 
-- **OS:** Ubuntu 25.04 (kernel 6.17)
-- **Wine:** 9.0 (Ubuntu package `wine`)
-- **CPU:** Intel Core i7 Ultra 7 165U
-- **GPU:** Intel HD Graphics 4000 (integrated)
+- **OS:** Ubuntu 25.04 (kernel 6.17), **Wine 9.0** — original guide tested on an Intel HD Graphics laptop.
+- **Hardware is a non-issue:** the client is a 2007-era DX8/9 game, so even an iGPU runs it; a modern
+  GPU (e.g. AMD RX 9060 XT / RDNA4 on Mesa RADV) is massive overkill. Lineage 2 is **Gold-rated** in the WineHQ AppDB.
 
-## Server
+## The one rule that decides everything: anticheat
 
-- **Name:** L2GhostSeason (x5 Interlude)
-- **Website:** https://l2ghostseason.com
-- **Auth server:** 158.220.114.136:2106
-- **Game server:** 158.220.114.136:7777
-- **Protocol:** Standard L2 Interlude (no proxy protocol, no anticheat)
+A Lineage 2 server is playable on Linux **only if it does _not_ use a kernel-mode anticheat.**
+Wine has no Windows kernel, so any client-side anticheat that loads a `.sys` ring-0 driver
+**cannot work** — this is a fundamental limitation, not a config issue.
 
-## Why GhostSeason
+- ✅ **Fine under Wine:** no anticheat, or _server-side_ anti-bot / anti-exploit / CAPTCHA.
+- ❌ **Blocks Wine:** **Active Anticheat** (`active64.sys`, active-ac.com), **SmartGuard**, **GameGuard/nProtect**, and similar kernel guards.
 
-Many Interlude private servers ship with **Active Anticheat** (active-ac.com), which loads a Windows kernel driver (`active64.sys`). Wine cannot load kernel drivers — this is a fundamental limitation, not a configuration issue. GhostSeason uses a clean, unmodified Interlude client with no anticheat, making it fully compatible with Wine.
+Before downloading any client, check the server's site/Discord/files for those names. See
+[Spotting kernel anticheat](#spotting-kernel-anticheat-before-you-download) below.
 
-## Installation
+## Servers
 
-### 1. Install Wine
+Each folder under `examples/` has `setup.sh` (download + Wine prefix + updater + launcher) and
+`play.sh`. Run `./setup.sh` then `./play.sh`.
+
+### ✅ Playable on Linux/Wine
+
+| Server | Chronicle / Rates | Notes | Setup |
+|---|---|---|---|
+| **ElmoreLab — Erica** ⭐ | Interlude **x3** | **best-populated Wine pick (~5k online)**; launched May 2026; 2+1 box, no P2W | [`examples/elmorelab-erica`](examples/elmorelab-erica) |
+| **ElmoreLab — Teon** | Interlude **x1** (hardcore) | reputable L2OFF; server-side CAPTCHA; strict no-box | [`examples/elmorelab-teon`](examples/elmorelab-teon) |
+| **ElmoreLab — Median** | Interlude **x2** | anticheat-free; allows light boxing; best mainstream Linux pick | [`examples/elmorelab-median`](examples/elmorelab-median) |
+| **L2Ghostlands** | Interlude **x4** (24/7) | permanent server; same "Ghost" client as GhostSeason | [`examples/l2ghostlands`](examples/l2ghostlands) |
+| **L2GhostSeason** | Interlude **x5** (seasonal) | ⚠️ offline _between_ seasons — use Ghostlands x4 meanwhile | [`examples/l2ghostseason`](examples/l2ghostseason) |
+| **Lineage2.MS** | Interlude **x10** (no-wipe) | clean long-term international mid-rate | [`examples/lineage2ms`](examples/lineage2ms) |
+| **EURO-PVP** | Interlude **x100 / x1200** | high-rate craft-PvP, mass PvP | [`examples/euro-pvp`](examples/euro-pvp) |
+| **Lineage 2 Scarlet** | **Fafurion** (Istina x50, *not* Interlude) | publishes its own WineHQ/Lutris guide — the Linux showcase | [`examples/lineage2-scarlet`](examples/lineage2-scarlet) |
+
+### ❌ Avoid on Linux — kernel anticheat (won't run under Wine)
+
+| Server | Anticheat | Note |
+|---|---|---|
+| **L2Reborn** | SmartGuard (kernel) | ironically the biggest Interlude server (~7.4k online) — still blocked |
+| **Asterios** | own kernel AC | staff statement: *"on Linux our client does not work, and will not work"* |
+| **Scryde** / **Battleclub** | client AC | community-confirmed blocked on Proton/Wine |
+| **LINEAGE2DEX** | Active Anticheat (`active64.sys`) | dynamic-rate, popular, but kernel driver = no Linux |
+
+> Reality check: the most-populated Interlude servers tend to be the kernel-anticheat ones.
+> The Wine-playable servers are smaller/niche — that tradeoff is unavoidable.
+
+## Quick start
 
 ```bash
+# 1. Install Wine (once)
 sudo dpkg --add-architecture i386
 sudo apt update
 sudo apt install wine wine32 wine64
-```
+# some servers also need: sudo apt install megatools p7zip-full p7zip-rar unzip winetricks
 
-Verify:
+# 2. Pick a server and set it up (downloads the client, makes a Wine prefix, writes play.sh)
+cd examples/l2ghostlands      # or any folder above
+./setup.sh
 
-```bash
-wine --version
-# wine-9.0 or later
-```
-
-### 2. Download the Pre-Installed Client
-
-Go to https://l2ghostseason.com and download the **pre-installed client** (not the patch). Available on MEGA and MediaFire (~2.4 GB).
-
-Extract it:
-
-```bash
-mkdir -p ~/Downloads/L2GhostSeason
-cd ~/Downloads/L2GhostSeason
-7z x "Lineage_II_Interlude_Ghostlands_Client_[pre-installed].7z"
-mv "Lineage II Interlude Ghostlands Client [pre-installed]/Lineage II" client
-rm -rf "Lineage II Interlude Ghostlands Client [pre-installed]"
-```
-
-The game folder should look like:
-
-```
-L2GhostSeason/
-└── client/
-    ├── animations/
-    ├── maps/
-    ├── music/
-    ├── sounds/
-    ├── staticmeshes/
-    ├── system/          # L2.exe, Core.dll, engine.dll, l2.ini, ...
-    ├── systextures/
-    ├── textures/
-    └── voice/
-```
-
-### 3. Create a Wine Prefix
-
-Use a dedicated 32-bit prefix to avoid conflicts with other Wine applications:
-
-```bash
-WINEPREFIX=~/.wine-l2ghost WINEARCH=win32 wineboot --init
-```
-
-### 4. Run the Updater (Optional but Recommended)
-
-The pre-installed client ships with `L2GhostUpdater.exe`. Run it once to pull the latest patches:
-
-```bash
-cd ~/Downloads/L2GhostSeason/client
-WINEPREFIX=~/.wine-l2ghost WINEDEBUG="-all" wine L2GhostUpdater.exe
-```
-
-A GUI window will appear. Let it finish updating, then close it.
-
-### 5. Register an Account
-
-Create an account at https://l2ghostseason.com/accounts.php before launching the game.
-
-### 6. Launch the Game
-
-```bash
-cd ~/Downloads/L2GhostSeason/client/system
-WINEPREFIX=~/.wine-l2ghost WINEDEBUG="-all" wine L2.exe
-```
-
-Or use the launch script (see below).
-
-## Launch Script
-
-Create `play.sh` in the game root:
-
-```bash
-#!/bin/bash
-cd "$(cd "$(dirname "$0")" && pwd)/client/system"
-WINEPREFIX="$HOME/.wine-l2ghost" WINEDEBUG="-all" wine L2.exe
-```
-
-```bash
-chmod +x play.sh
+# 3. Register an account on that server's website, then play
 ./play.sh
 ```
 
-## L2.ini Encryption
-
-The L2.ini config file is RSA-encrypted (Lineage2Ver413 format). To read or modify it (e.g. change the server address), you need to decrypt it first. See `l2dex.py` in the tools section below for a Python script that handles this.
-
-The encryption uses these parameters:
-- **Header:** `Lineage2Ver413` (UTF-16-LE)
-- **RSA modulus:** 1024-bit
-- **Decryption exponent:** 0x1d (29)
-- **Block size:** 128 bytes
-- **Payload:** zlib-compressed plaintext, prefixed with a 4-byte uncompressed size
+Each server uses its **own dedicated 32-bit Wine prefix** (e.g. `~/.wine-l2ghost`,
+`~/.wine-l2median`) so they never conflict.
 
 ## Tools
 
-### l2ini.py — L2.ini Decrypt/Encrypt Tool
+### `l2ini.py` — read/modify the encrypted L2.ini
 
-A standalone Python script for reading and modifying the encrypted L2.ini:
+The client's `L2.ini` (which holds the server address) is RSA-encrypted (`Lineage2Ver413` format).
+`l2ini.py` decrypts/re-encrypts it so you can point any compatible client at any server:
 
 ```bash
-# Show current server address
-python3 l2ini.py status
-
-# Decrypt L2.ini to stdout
-python3 l2ini.py decrypt
-
-# Set a custom server address
-python3 l2ini.py set 158.220.114.136
+python3 l2ini.py status                 # show current server address
+python3 l2ini.py decrypt                # decrypt L2.ini to stdout
+python3 l2ini.py set 158.220.114.136    # set a custom server address
 ```
 
-See [l2ini.py](l2ini.py) for the full source.
+Encryption details: header `Lineage2Ver413` (UTF-16-LE), 1024-bit RSA modulus, decrypt exponent
+`0x1d`, 128-byte blocks, zlib-compressed payload prefixed with a 4-byte size.
+
+## Spotting kernel anticheat before you download
+
+1. Read the server's site / FAQ / Discord / rules — look for **"Active Anticheat" / "Active AC"**,
+   **"SmartGuard"**, **"GameGuard"**, or a custom **launcher that installs a driver**.
+2. After download, check the client: `system/GameGuard/` (`GameMon.des`, `npggNT.des`) = GameGuard;
+   an `active64.sys` / Active updater = Active AC; a SmartGuard launcher = SmartGuard.
+3. Server-side CAPTCHA / anti-exploit and a plain file-validation updater are **fine**.
 
 ## Troubleshooting
 
-### Game crashes with "Can't bind to native class Engine.SkillVisualEffect"
-
-You are using mismatched DLLs. The `engine.dll`, `Core.dll`, and other DLLs must come from the same client build as `L2.exe`. Do NOT mix DLLs from different Interlude clients. Use the pre-installed client download as-is.
-
-### Game shows wrong server name in server list
-
-Server names come from the local `servername-e.dat` file in the `system/` directory, not from the auth server. Make sure you're using the server name file that came with the GhostSeason client.
-
-### "Active Anticheat - Driver installation error(11)"
-
-This means the server requires Active Anticheat, which needs a Windows kernel driver. Wine cannot load kernel drivers. This server will not work on Linux. Choose a server without anticheat (like GhostSeason).
-
-### Login page appears but credentials don't work
-
-Verify the L2.ini points to the correct server. If you previously used a different server's files, the L2.ini may still contain the old server address.
-
-### Wine prefix errors
-
-If you see `chdir` errors or strange behaviour, delete the prefix and recreate it:
-
-```bash
-rm -rf ~/.wine-l2ghost
-WINEPREFIX=~/.wine-l2ghost WINEARCH=win32 wineboot --init
-```
+- **"Can't bind to native class Engine.SkillVisualEffect"** — mismatched DLLs. `engine.dll`,
+  `Core.dll`, etc. must come from the *same* client build as `L2.exe`. Use the provided client as-is.
+- **Wrong server name in the list** — names come from local `servername-e.dat` in `system/`, not the
+  auth server. Use the file that shipped with that server's client.
+- **"Active Anticheat — Driver installation error(11)"** — the server needs a kernel anticheat; it
+  will not work on Linux. Choose an anticheat-free server (see the table above).
+- **Login page appears but credentials fail** — `L2.ini` points at the wrong server; fix with
+  `python3 l2ini.py set <ip>`.
+- **Wine prefix errors / `chdir`** — delete and recreate the prefix:
+  `rm -rf ~/.wine-<server> && WINEPREFIX=~/.wine-<server> WINEARCH=win32 wineboot --init`.
 
 ## Notes
 
-- The game runs as a 32-bit Windows application under Wine. A 32-bit prefix (`WINEARCH=win32`) works best.
-- `WINEDEBUG="-all"` suppresses noisy Wine debug output. Remove it if you need to troubleshoot.
-- The pre-installed client is ~6.4 GB extracted.
-- No special Wine overrides (winetricks, native DLLs) are needed.
+- The game is a 32-bit Windows app — a `WINEARCH=win32` prefix works best.
+- `WINEDEBUG="-all"` (used in the scripts) silences noisy Wine output; drop it to debug.
+- A pre-installed Interlude client is ~6.4 GB extracted; budget ~9 GB free for download + extract.
+- Most clients need **no** winetricks/native DLLs. Scarlet is the exception (see its README:
+  corefonts, d3dx9, disable CSMT, ALT→SUPER remap).

@@ -8,7 +8,7 @@
 
 set -euo pipefail
 
-INSTALL_DIR="${1:-$HOME/L2ElmoreTeon}"
+INSTALL_DIR="${1:-$HOME/Documents/Games/lineage2/elmorelab-teon}"
 WINEPREFIX="$HOME/.wine-l2teon"
 MEGA_URL="https://mega.nz/file/7RNGSJza#B2fs_wbrJ5D5E7v-U7PZxkEF1GrQeWv8LQGJApUN47E"
 UPDATER_URL="https://elmorelab.com/files/updater_teon/Updater.zip"

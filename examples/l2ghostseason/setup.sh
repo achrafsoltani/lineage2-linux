@@ -8,9 +8,11 @@
 
 set -euo pipefail
 
-INSTALL_DIR="${1:-$HOME/L2GhostSeason}"
+INSTALL_DIR="${1:-$HOME/Documents/Games/lineage2/l2ghostseason}"
 WINEPREFIX="$HOME/.wine-l2ghost"
-MEDIAFIRE_PAGE="https://www.mediafire.com/file/9v2sm4oh3e2l0hi/Lineage_II_Interlude_Ghostlands_Client_%255Bpre-installed%255D.7z/file"
+# Old link (9v2sm4oh3e2l0hi) 404'd; this is the re-uploaded client (verified live 2026-03-29).
+# MEGA mirror fallback: https://mega.nz/file/qplmnCDD#rHvF0tEVGGpf_xmDFlDFQWJwgI6O014bbbUhlVtZwuw  (needs megatools: megadl)
+MEDIAFIRE_PAGE="https://www.mediafire.com/file/tlg1xmr523cuuiz/Lineage_II_Interlude_Ghostlands_Client_%5Bpre-installed%5D.7z/file"
 
 info()  { printf '\033[1;34m[INFO]\033[0m %s\n' "$1"; }
 error() { printf '\033[1;31m[ERROR]\033[0m %s\n' "$1" >&2; exit 1; }
